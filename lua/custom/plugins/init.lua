@@ -3,7 +3,4 @@
 --
 -- See the kickstart.nvim README for more information
 
-return {
-  vim.lsp.enable 'gleam',
-  vim.lsp.enable 'biome',
-}
+return {}

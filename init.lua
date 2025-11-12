@@ -769,60 +769,6 @@ require('lazy').setup({
         mode = '',
         desc = '[F]ormat buffer',
       },
-      {
-        '<leader>l',
-        function()
-          local ft = vim.bo.filetype
-          local biome_filetypes = {
-            javascript = true,
-            javascriptreact = true,
-            typescript = true,
-            typescriptreact = true,
-            json = true,
-            css = true,
-            scss = true,
-            less = true,
-            html = true,
-            vue = true,
-            svelte = true,
-          }
-
-          if not biome_filetypes[ft] then
-            vim.notify('Biome lint not available for this filetype', vim.log.levels.WARN)
-            return
-          end
-
-          -- Save buffer before linting
-          vim.cmd 'write'
-
-          -- Run biome lint --write for the current file
-          local filepath = vim.fn.expand '%:p'
-          vim.fn.jobstart({ 'biome', 'lint', '--fix', filepath }, {
-            stdout_buffered = true,
-            stderr_buffered = true,
-            on_stdout = function(_, data)
-              if data then
-                print(table.concat(data, '\n'))
-              end
-            end,
-            on_stderr = function(_, data)
-              if data then
-                print(table.concat(data, '\n'))
-              end
-            end,
-            on_exit = function(_, code)
-              if code == 0 then
-                vim.notify('Biome lint applied successfully!', vim.log.levels.INFO)
-                vim.cmd 'edit' -- reload buffer
-              else
-                vim.notify('Biome lint failed', vim.log.levels.ERROR)
-              end
-            end,
-          })
-        end,
-        mode = '',
-        desc = 'Apply Biome [L]inter fixes',
-      },
     },
     opts = {
       notify_on_error = false,
