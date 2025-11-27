@@ -13,7 +13,7 @@ return {
         auto_trigger = true,
         hide_during_completion = vim.g.ai_cmp,
         keymap = {
-          accept = '<C-y>', -- handled by nvim-cmp / blink.cmp
+          accept = '<C-a>', -- handled by nvim-cmp / blink.cmp
           next = '<M-]>',
           prev = '<M-[>',
         },
