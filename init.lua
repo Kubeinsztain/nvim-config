@@ -933,17 +933,26 @@ require('lazy').setup({
       -- - sr)'  - [S]urround [R]eplace [)] [']
       require('mini.surround').setup {
         mappings = {
-          add = 'sa',
-          delete = 'sd',
-          find = 'sf',
-          find_left = 'sF',
-          highlight = 'sh',
-          replace = 'sr',
+          add = 'ys',
+          delete = 'ds',
+          find = '',
+          find_left = '',
+          highlight = '',
+          replace = 'cs',
 
           suffix_last = 'l',
           suffix_next = 'n',
         },
       }
+
+      require('mini.files').setup {
+        -- See `:help mini.files.setup()` for configuration options
+        mappings = {},
+      }
+
+      vim.keymap.set('n', '<leader>m', function()
+        require('mini.files').open()
+      end, { desc = 'Toggle [M]ini Files' })
 
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,
