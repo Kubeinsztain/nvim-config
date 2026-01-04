@@ -9,3 +9,6 @@ vim.opt.softtabstop = 2
 -- LSP, Linters etc
 vim.lsp.enable 'biome'
 vim.lsp.enable 'gleam'
+
+-- Relative line numbers
+vim.opt.relativenumber = true
