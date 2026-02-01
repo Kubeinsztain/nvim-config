@@ -131,17 +131,31 @@ return {
         -- Formatters
         'stylua', -- Lua formatter
         'biome', -- JS/TS/JSON/CSS formatter & linter
-        
+
         -- Linters
         'markdownlint', -- Markdown linter
-        
+
         -- DAP (Debuggers)
         -- 'js-debug-adapter',  -- example: add if needed
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
+      --
+      -- Define the list of LSP servers to be automatically installed by Mason.
+      --
+      -- Add the server names you want in the list below (see: https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers)
+      -- Example: ensure_installed = { "lua_ls", "pyright", "tsserver" }
+      --
       require('mason-lspconfig').setup {
-        ensure_installed = {},
+        ensure_installed = {
+          'biome',
+          'jsonls',
+          'just',
+          'lua_ls',
+          'stylua',
+          'tailwindcss',
+          'ts_ls',
+        },
         automatic_installation = false,
         handlers = {
           function(server_name)
