@@ -39,14 +39,24 @@ return {
       html = { 'biome-check' },
       vue = { 'biome-check' },
       svelte = { 'biome-check' },
-
-      formatters = {
-        biome = {
-          command = 'biome',
-          args = { 'check', '--stdin-file-path', '$FILEPATH' },
-          stdin = true,
-        },
+      yaml = { 'prettier' },
+      markdown = { 'prettier' },
+      markdown_inline = { 'prettier' },
+    },
+    formatters = {
+      biome = {
+        command = 'biome',
+        args = { 'check', '--stdin-file-path', '$FILEPATH' },
+        stdin = true,
       },
+
+      cwd = function()
+        return vim.fs.root(0, {
+          'package.json',
+          '.prettierrc',
+          '.git',
+        })
+      end,
     },
   },
 }

@@ -131,6 +131,7 @@ return {
         -- Formatters
         'stylua', -- Lua formatter
         'biome', -- JS/TS/JSON/CSS formatter & linter
+        'prettier',
 
         -- Linters
         'markdownlint', -- Markdown linter
