@@ -18,11 +18,11 @@ return {
     },
   },
   keys = {
-    -- 🔁 Navigation (Alt + [ / ])
+    -- Navigation (Alt + [ / ])
     { '<A-]>', '<Cmd>BufferNext<CR>', desc = 'Next buffer' },
     { '<A-[>', '<Cmd>BufferPrevious<CR>', desc = 'Previous buffer' },
 
-    -- 🔀 Reordering (Alt + Shift + [ / ])
+    -- Reordering (Alt + Shift + [ / ])
     { '<A-S-]>', '<Cmd>BufferMoveNext<CR>', desc = 'Move buffer next' },
     { '<A-S-[>', '<Cmd>BufferMovePrevious<CR>', desc = 'Move buffer prev' },
 
@@ -30,10 +30,13 @@ return {
     { '<leader>bn', '<Cmd>BufferMoveNext<CR>', desc = 'Move buffer next' },
     { '<leader>bp', '<Cmd>BufferMovePrevious<CR>', desc = 'Move buffer prev' },
 
-    -- 🎯 Pick buffer (letter-based jump)
+    -- Pick buffer (letter-based jump)
     { '<leader>bb', '<Cmd>BufferPick<CR>', desc = 'Pick buffer' },
 
-    -- ❌ Close buffer
+    -- Close buffer
     { '<leader>x', '<Cmd>BufferClose<CR>', desc = 'Close buffer' },
+
+    -- Force close buffer
+    { '<leader>X', '<Cmd>BufferClose!<CR>', desc = 'Force close buffer' },
   },
 }
