@@ -11,30 +11,58 @@ return {
     opts = {
       -- custom handling of parsers
       ensure_installed = {
+        -- shell
         'bash',
+        'zsh',
+        -- web
         'css',
-        'diff',
-        'gleam',
-        'graphql',
         'html',
         'javascript',
         'jsdoc',
         'json',
+        'scss',
+        'tsx',
+        'typescript',
+        -- data
+        'yaml',
+        'toml',
+        -- dev
+        'diff',
+        'dockerfile',
+        'gitattributes',
+        'gitcommit',
+        'gitignore',
+        -- gleam
+        'gleam',
+        -- go lang
+        'go',
+        'gomod',
+        'gosum',
+        'gowork',
+        -- graphql
+        'graphql',
+        -- lua
         'lua',
         'luadoc',
         'luap',
+        -- markdown
         'markdown',
         'markdown_inline',
+        -- prisma
+        'prisma',
+        -- python
         'python',
+        -- query
         'query',
+        -- regex
         'regex',
-        'toml',
-        'tsx',
-        'typescript',
+        -- ruby
+        'ruby',
+        -- templ
+        'templ',
+        -- vim
         'vim',
         'vimdoc',
-        'yaml',
-        'ruby',
       },
     },
     config = function(_, opts)
@@ -82,7 +110,10 @@ return {
           -- Try to get existing parser (helpful check if filetype was returned above)
           local parser_configs = require 'nvim-treesitter.parsers'
           if not parser_configs[parser_name] then
-            return -- Parser not available, skip silently
+            vim.schedule(function()
+              vim.notify(string.format('Treesitter: no parser for filetype "%s"', filetype), vim.log.levels.WARN)
+            end)
+            return
           end
 
           local parser_installed = pcall(vim.treesitter.get_parser, bufnr, parser_name)
@@ -93,11 +124,20 @@ return {
           end
 
           -- let's check again
-          parser_installed = pcall(vim.treesitter.get_parser, bufnr, parser_name)
-
+          -- parser_installed = pcall(vim.treesitter.get_parser, bufnr, parser_name)
+          --
+          -- if parser_installed then
+          --   -- Start treesitter for this buffer
+          --   vim.treesitter.start(bufnr, parser_name)
+          -- end
           if parser_installed then
-            -- Start treesitter for this buffer
-            vim.treesitter.start(bufnr, parser_name)
+            local ok, _ = pcall(vim.treesitter.start, bufnr, parser_name)
+
+            if not ok then
+              vim.schedule(function()
+                vim.notify(string.format('Treesitter: failed to start parser "%s" for filetype "%s"', parser_name, filetype), vim.log.levels.WARN)
+              end)
+            end
           end
         end,
       })
