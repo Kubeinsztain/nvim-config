@@ -15,7 +15,45 @@ return {
     { 'nvim-tree/nvim-web-devicons' },
   },
   config = function()
+    local actions = require 'telescope.actions'
+
     require('telescope').setup {
+      defaults = {
+        mappings = {
+          i = {
+            ['<CR>'] = function(prompt_bufnr)
+              local picker = require('telescope.actions.state').get_current_picker(prompt_bufnr)
+              local multi = picker:get_multi_selection()
+              if #multi > 0 then
+                actions.close(prompt_bufnr)
+                for _, item in ipairs(multi) do
+                  if item.path then
+                    vim.cmd('edit ' .. vim.fn.fnameescape(item.path))
+                  end
+                end
+              else
+                actions.select_default(prompt_bufnr)
+              end
+            end,
+          },
+          n = {
+            ['<CR>'] = function(prompt_bufnr)
+              local picker = require('telescope.actions.state').get_current_picker(prompt_bufnr)
+              local multi = picker:get_multi_selection()
+              if #multi > 0 then
+                actions.close(prompt_bufnr)
+                for _, item in ipairs(multi) do
+                  if item.path then
+                    vim.cmd('edit ' .. vim.fn.fnameescape(item.path))
+                  end
+                end
+              else
+                actions.select_default(prompt_bufnr)
+              end
+            end,
+          },
+        },
+      },
       pickers = {
         find_files = {
           find_command = {

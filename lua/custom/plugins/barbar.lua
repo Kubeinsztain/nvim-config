@@ -33,6 +33,9 @@ return {
     -- Pick buffer (letter-based jump)
     { '<leader>bb', '<Cmd>BufferPick<CR>', desc = 'Pick buffer' },
 
+    -- Close all other buffers (keep only focused)
+    { '<leader>bo', '<Cmd>BufferCloseAllButCurrent<CR>', desc = 'Close all other buffers' },
+
     -- Close buffer
     { '<leader>x', '<Cmd>BufferClose<CR>', desc = 'Close buffer' },
 
